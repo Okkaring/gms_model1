@@ -9,16 +9,21 @@
 <%!
 	public String getSpec(HttpServletRequest request){
 	String spec="";
+	
 	String name=request.getParameter("name");
-	String gender="남";
+	String id = request.getParameter("id");
+	String pw = request.getParameter("pw");
+	String gender = request.getParameter("gender");
 	String birth=request.getParameter("birthday");
 	String age=String.valueOf(Integer.parseInt(new SimpleDateFormat("yyyy").format(new Date())) -Integer.parseInt(birth));
-	spec=String.format("%s(%s) %s 세", name,gender,age);
+	String email = request.getParameter("email");
+	String major = request.getParameter("major");
+	
+	spec=String.format("%s/%s/%s/%s/%s/%s/%s",name,id,pw,gender,age,email,major);
+	
 	return spec;
 	}
 %>
-
-
 
 <!DOCTYPE html>
 <html>
@@ -43,6 +48,8 @@
 	<div id="container">
 	<h1> Hello!! <%= this.getSpec(request) %> !</h1>
 	
+	<%String[] arr = getSpec(request).split("/"); %>
+	
 	<table id="index-tab">
 		<tr id="index-tab-tr">
 			<th>STUDENT INFORMATION</th>
@@ -50,36 +57,34 @@
 		</tr>
 		<tr>
 			<td>NAME</td>
-			<td><%= request.getParameter("name") %></td>
+			<td><%= arr[0] %></td>
 		</tr>
 		<tr>
-			<td>ID!!</td>
-			<td><%= request.getParameter("id") %></td>
+			<td>ID</td>
+			<td><%= arr[1] %></td>
 		</tr>
 		<tr>
 			<td>PASSWORD</td>
-			<td><%= request.getParameter("pw") %></td>
+			<td><%= arr[2] %></td>
 		</tr>
-		<tr>
-			<td>BIRTHDATE</td>
-			<td><%= request.getParameter("birthday") %></td>
-		</tr>
+	
 		<tr>
 			<td>GENDER</td>
-			<td><%= request.getParameter("gender") %></td>
+			<td><%= arr[3] %></td>
+		</tr>
+		<tr>
+			<td>AGE</td>
+			<td><%= arr[4] %></td>
 		</tr>
 		<tr>
 			<td>@E-MAIL</td>
-			<td><%= request.getParameter("email") %></td>
+			<td><%= arr[5] %></td>
 		</tr>
 		<tr>
 			<td>MAJOR</td>
-			<td><%= request.getParameter("major") %></td>
+			<td><%= arr[6] %></td>
 		</tr>
-		<tr>
-			<td>SUBJECT</td>
-			<td><%= request.getParameter("subject") %></td>
-		</tr>
+
 	</table>
 	
 	
